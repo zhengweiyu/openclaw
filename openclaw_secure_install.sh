@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# OpenClaw 在线一键安装脚本
+# OpenClaw 安全安装脚本
 # 版本: 2.1
-# 使用方法: curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+# 使用方法: curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 
 set -euo pipefail
 
 # ==================== 配置 ====================
 readonly SCRIPT_VERSION="2.1"
-readonly SCRIPT_URL="https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh"
+readonly SCRIPT_URL="https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh"
 
 # 颜色定义
 readonly RED='\033[0;31m'
@@ -106,7 +106,7 @@ wait_for_key() {
 # 显示横幅
 show_banner() {
     echo -e "${BLUE}========================================${NC}"
-    echo -e "${PURPLE}  OpenClaw 在线一键安装 v${SCRIPT_VERSION}${NC}"
+    echo -e "${PURPLE}  OpenClaw 安全安装 v${SCRIPT_VERSION}${NC}"
     echo -e "${BLUE}========================================${NC}"
     echo
     echo -e "${CYAN}🚀 AI 助手 | 🔒 安全部署 | 🌐 跨平台支持${NC}"
@@ -618,7 +618,7 @@ if [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ -n "${CURL_EXECUTION:-}" ]]; then
     # 处理命令行参数
     case "${1:-}" in
         "-h"|"--help")
-            echo "OpenClaw 在线一键安装脚本 v${SCRIPT_VERSION}"
+            echo "OpenClaw 安全安装脚本 v${SCRIPT_VERSION}"
             echo
             echo "用法: curl -fsSL $SCRIPT_URL | bash [选项]"
             echo

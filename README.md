@@ -17,29 +17,29 @@ OpenClaw 跨平台安全部署脚本是一个自动化安装和配置 OpenClaw A
 
 ## 🚀 快速开始
 
-### 在线一键安装（推荐）
+### 安全安装（推荐）
 
 #### 基础安装
 ```bash
-curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 ```
 
 #### 高级安装选项
 ```bash
 # 自动安装（无交互）
-AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 
 # 选择LLM提供商
-LLM_PROVIDER=claude curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+LLM_PROVIDER=claude curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 
 # 调试模式
-DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 
 # 跳过Tailscale安装
-SKIP_TAILSCALE=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+SKIP_TAILSCALE=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 
 # 组合选项
-AUTO_ACCEPT=1 LLM_PROVIDER=minimax DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+AUTO_ACCEPT=1 LLM_PROVIDER=minimax DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash
 ```
 
 #### 支持的LLM提供商
@@ -56,10 +56,10 @@ AUTO_ACCEPT=1 LLM_PROVIDER=minimax DEBUG=1 curl -fsSL https://raw.githubusercont
 # 克隆仓库
 git clone https://github.com/zhengweiyu/openclaw.git
 cd openclaw
-chmod +x online_install.sh
+chmod +x openclaw_secure_install.sh
 
 # 运行安装脚本
-./online_install.sh
+./openclaw_secure_install.sh
 ```
 
 ## 📋 系统要求
@@ -105,12 +105,12 @@ AUTO_ACCEPT=1 ./git_commit.sh quick
 ./git_commit.sh --help
 ```
 
-### 在线安装脚本
+### 安全安装脚本
 集成了完整的安装流程，支持多种配置选项：
 
 ```bash
 # 查看帮助
-curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash --help
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash --help
 ```
 
 ## 📦 安装流程
@@ -373,7 +373,7 @@ bats tests/
 ### 获取帮助
 ```bash
 # 安装脚本帮助
-curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash --help
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_secure_install.sh | bash --help
 
 # Git提交脚本帮助
 ./git_commit.sh --help
