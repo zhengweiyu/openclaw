@@ -89,20 +89,24 @@ check_systemd() {
 # 获取目标用户名
 get_target_user() {
     local user_input="$TARGET_USER"
+    local current_user
+    
+    # 获取当前用户名（不输出日志避免混合）
+    current_user=$(whoami 2>/dev/null | tr -d '\n\r' | tr -d ' \t')
     
     if [[ -n "$user_input" ]]; then
         log "INFO" "使用指定用户: $user_input"
     elif [[ "${AUTO_ACCEPT}" == "1" ]]; then
-        user_input=$(whoami 2>/dev/null | tr -d '\n\r')
+        user_input="$current_user"
         log "INFO" "自动模式，使用当前用户: $user_input"
     else
         # 检查是否在交互式终端中
         if [[ -t 0 ]]; then
-            read -p "请输入需要修复的目标用户名（默认: $(whoami)）: " -r user_input
-            user_input="${user_input:-$(whoami)}"
+            read -p "请输入需要修复的目标用户名（默认: $current_user）: " -r user_input
+            user_input="${user_input:-$current_user}"
         else
             # 非交互式环境，使用当前用户
-            user_input=$(whoami 2>/dev/null | tr -d '\n\r')
+            user_input="$current_user"
             log "INFO" "非交互式环境，使用当前用户: $user_input"
         fi
     fi
@@ -125,19 +129,20 @@ enable_linger() {
     
     if [[ $EUID -ne 0 ]]; then
         log "INFO" "正在提权到root..."
-        if sudo loginctl enable-linger "$target_user"; then
+        # 分离输出避免日志混合
+        if sudo loginctl enable-linger "$target_user" >/dev/null 2>&1; then
             log "INFO" "linger已开启"
-            sudo loginctl show-user "$target_user" | grep Linger
-            sudo systemctl daemon-reload
+            sudo loginctl show-user "$target_user" | grep Linger 2>/dev/null || true
+            sudo systemctl daemon-reload >/dev/null 2>&1
             log "INFO" "系统级systemd已重载"
         else
             error_exit "root操作失败，请手动执行 loginctl enable-linger $target_user"
         fi
     else
-        loginctl enable-linger "$target_user"
+        loginctl enable-linger "$target_user" >/dev/null 2>&1
         log "INFO" "linger已开启"
-        loginctl show-user "$target_user" | grep Linger
-        systemctl daemon-reload
+        loginctl show-user "$target_user" | grep Linger 2>/dev/null || true
+        systemctl daemon-reload >/dev/null 2>&1
         log "INFO" "系统级systemd已重载"
     fi
 }
@@ -152,13 +157,13 @@ verify_user_environment() {
     
     # 简化的验证逻辑
     log "INFO" "创建XDG_RUNTIME_DIR..."
-    sudo mkdir -p "/run/user/$target_uid"
-    sudo chmod 700 "/run/user/$target_uid"
-    sudo chown -R "$target_user:$target_user" "/run/user/$target_uid"
+    sudo mkdir -p "/run/user/$target_uid" 2>/dev/null || true
+    sudo chmod 700 "/run/user/$target_uid" 2>/dev/null || true
+    sudo chown -R "$target_user:$target_user" "/run/user/$target_uid" 2>/dev/null || true
     log "INFO" "XDG_RUNTIME_DIR已创建: /run/user/$target_uid"
     
     # 测试用户级systemd
-    if sudo -iu "$target_user" systemctl --user status &> /dev/null; then
+    if sudo -iu "$target_user" systemctl --user status >/dev/null 2>&1; then
         log "INFO" "用户级systemd总线连通成功！"
     else
         log "ERROR" "用户级systemd总线仍不通，请检查系统配置！"
@@ -166,7 +171,7 @@ verify_user_environment() {
     fi
     
     # 执行用户级daemon-reload
-    sudo -iu "$target_user" systemctl --user daemon-reload
+    sudo -iu "$target_user" systemctl --user daemon-reload >/dev/null 2>&1
     log "INFO" "daemon-reload执行成功！"
 }
 
