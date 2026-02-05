@@ -98,9 +98,16 @@ wait_for_key() {
         return
     fi
     
-    log "INFO" "按任意键继续（Ctrl+C退出）..."
-    read -n 1 -s -r
-    echo
+    # 检查是否在交互式终端中
+    if [[ -t 0 ]]; then
+        log "INFO" "按任意键继续（Ctrl+C退出）..."
+        read -n 1 -s -r
+        echo
+    else
+        # 非交互式环境，直接继续
+        log "INFO" "非交互式环境，自动继续执行..."
+        return
+    fi
 }
 
 # 显示横幅
