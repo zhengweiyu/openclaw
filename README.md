@@ -390,7 +390,7 @@ openclaw support
 如果遇到问题，请通过以下方式报告：
 1. [GitHub Issues](https://github.com/zhengweiyu/openclaw/issues)
 2. 社区论坛
-3. 支持邮件: support@openclaw.ai
+3. 支持邮件: zhengweiyu@gmail.com
 
 ## 📈 版本历史
 
