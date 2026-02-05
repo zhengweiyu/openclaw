@@ -2,13 +2,13 @@
 
 # OpenClaw 在线一键安装脚本
 # 版本: 2.0
-# 使用方法: curl -fsSL https://openclaw.ai/install_secure_online.sh | bash
+# 使用方法: curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
 
 set -euo pipefail
 
 # ==================== 配置 ====================
 readonly SCRIPT_VERSION="2.0"
-readonly SCRIPT_URL="https://openclaw.ai/install_secure_online.sh"
+readonly SCRIPT_URL="https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh"
 readonly FALLBACK_URL="https://raw.githubusercontent.com/openclaw/deployment-scripts/main/online_install.sh"
 
 # 颜色定义

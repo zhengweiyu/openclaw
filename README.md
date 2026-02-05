@@ -6,27 +6,46 @@
 
 ## 📋 概述
 
-OpenClaw 跨平台安全部署脚本是一个自动化安装和配置 OpenClaw AI 助手的 Bash 脚本，专为生产环境的安全部署而设计。脚本支持 macOS 和 Ubuntu 20.04+ 系统，提供完整的安全加固措施和最佳实践配置。
+OpenClaw 跨平台安全部署脚本是一个自动化安装和配置 OpenClaw AI 助手的 Bash 脚本，专为生产环境的安全部署而设计。脚本支持 **在线一键安装** 和本地安装两种方式，兼容 macOS 和 Ubuntu 20.04+ 系统，提供完整的安全加固措施和最佳实践配置。
+
+### 🌟 核心特性
+- **🚀 在线一键安装**: 单条命令完成所有配置
+- **🔧 多LLM支持**: MiniMax、Claude、GPT 自由选择
+- **🛡️ 企业级安全**: Tailscale VPN + 防火墙 + 权限控制
+- **📱 智能防护**: 提示词注入防护 + 技能审计 + 认知免疫
+- **🔄 自动化运维**: 系统服务 + 开机自启 + 日志监控
 
 ## 🚀 主要特性
 
-### 🔒 安全优先
-- **网络隔离**: 通过 Tailscale VPN 实现 Zero Trust 网络架构
-- **防火墙加固**: 仅允许授权访问，最小化攻击面
-- **权限控制**: 严格的文件权限和目录访问控制
-- **安全审计**: 自动化安全检查和漏洞修复
+### 🌐 在线一键安装
+- **🚀 零配置部署**: 一条命令完成所有安装和配置
+- **🎯 智能检测**: 自动识别系统环境，适配不同配置
+- **📱 灵活选项**: 支持多种环境变量自定义安装流程
+- **🔄 持续更新**: 脚本在线获取，始终保持最新版本
 
-### 🛡️ 防护机制
-- **提示词注入防护**: `prompt-guard` 技能防止恶意提示攻击
-- **技能审计**: `skillguard` 提供技能安全管理
-- **认知免疫**: ACIP 高级认知防护系统
-- **mDNS 禁用**: 防止设备在网络中暴露
+### 🤖 多LLM提供商支持
+- **🥇 MiniMax** (默认): 性价比高，中文支持优秀
+- **🥈 Claude**: 推理能力强，安全性高
+- **🥉 GPT**: 生态完善，功能丰富
+- **🔧 一键切换**: 通过环境变量快速切换提供商
 
-### 🔧 自动化部署
-- **依赖管理**: 自动安装所有必需的依赖项
-- **服务配置**: 创建系统服务，支持开机自启动
-- **环境配置**: 跨平台兼容的环境变量和 PATH 设置
-- **错误处理**: 完善的错误检查和回滚机制
+### 🔒 企业级安全
+- **🌐 网络隔离**: Tailscale VPN 实现 Zero Trust 架构
+- **🛡️ 防火墙加固**: 仅允许授权访问，最小化攻击面
+- **🔐 权限控制**: 严格的文件权限和目录访问控制
+- **🔍 安全审计**: 自动化安全检查和漏洞修复
+
+### 🛡️ 智能防护机制
+- **🚫 提示词注入防护**: 防止恶意 AI 提示攻击
+- **📊 技能审计系统**: 安全的插件管理和监控
+- **🧠 认知免疫保护**: ACIP 高级防护机制
+- **📡 mDNS 禁用**: 防止设备在网络中暴露
+
+### 🔧 自动化运维
+- **📦 依赖管理**: 自动安装所有必需的依赖项
+- **⚡ 服务配置**: 创建系统服务，支持开机自启动
+- **🌍 环境配置**: 跨平台兼容的环境变量和 PATH 设置
+- **🛠️ 错误处理**: 完善的错误检查和回滚机制
 
 ## 📋 系统要求
 
@@ -35,31 +54,73 @@ OpenClaw 跨平台安全部署脚本是一个自动化安装和配置 OpenClaw A
 - **Ubuntu**: 20.04 LTS 及以上版本
 
 ### 前置条件
-1. **MiniMax 账户**: 需要注册 MiniMax 并获取 API 密钥
-   - 注册地址: https://api.minimax.chat/
-   - 获取 Group ID 和 API Key
-2. **Tailscale 客户端**: 已安装 Tailscale 客户端（脚本会自动配置）
-3. **网络连接**: 稳定的互联网连接用于下载依赖
-4. **磁盘空间**: 至少 2GB 可用空间
-5. **管理员权限**: 用于安装系统服务和配置防火墙
+
+#### 📋 基础要求
+1. **网络连接**: 稳定的互联网连接用于下载依赖
+2. **磁盘空间**: 至少 2GB 可用空间
+3. **管理员权限**: 用于安装系统服务和配置防火墙
+
+#### 🤖 LLM 提供商账户（选择其一）
+
+| 提供商 | 注册地址 | 需要准备 | 适用场景 |
+|--------|----------|----------|----------|
+| **MiniMax** (默认) | https://api.minimax.chat/ | Group ID + API Key | 个人开发者，中小企业 |
+| **Claude** | https://console.anthropic.com/ | API Key | 企业用户，注重安全 |
+| **GPT** | https://platform.openai.com/ | API Key | 技术团队，集成开发 |
+
+#### 🔒 网络安全（可选）
+- **Tailscale 客户端**: 已安装 Tailscale 客户端（脚本会自动配置）
 
 ## 🛠️ 安装使用
 
-### 快速开始
+### 🚀 在线一键安装（推荐）
+
+#### 基础安装
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+```
+
+#### 高级安装选项
 
 ```bash
-# 下载并运行安装脚本
-curl -fsSL https://openclaw.ai/install_secure.sh | bash
+# 自动安装（无交互）
+AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
 
-# 或者克隆仓库后运行
+# 选择LLM提供商
+LLM_PROVIDER=claude curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+
+# 调试模式
+DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+
+# 跳过Tailscale安装
+SKIP_TAILSCALE=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+
+# 组合选项
+AUTO_ACCEPT=1 LLM_PROVIDER=minimax DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+```
+
+#### 支持的LLM提供商
+
+| 提供商 | 命令 | 优势 |
+|--------|------|------|
+| **MiniMax** (默认) | `LLM_PROVIDER=minimax` | 性价比高，中文支持优秀 |
+| **Claude** | `LLM_PROVIDER=claude` | 推理能力强，安全性高 |
+| **GPT** | `LLM_PROVIDER=gpt` | 生态完善，功能丰富 |
+
+### 📦 本地安装
+
+#### 传统方式
+```bash
+# 克隆仓库
 git clone https://github.com/openclaw/deployment-scripts.git
 cd deployment-scripts
 chmod +x openclaw_secure_install.sh
+
+# 运行安装脚本
 ./openclaw_secure_install.sh
 ```
 
-### 脚本选项
-
+#### 脚本选项
 ```bash
 # 显示帮助信息
 ./openclaw_secure_install.sh --help
@@ -71,48 +132,94 @@ chmod +x openclaw_secure_install.sh
 ./openclaw_secure_install.sh --debug
 ```
 
-## 📦 安装步骤详解
+### 🎯 安装方式对比
 
-### 1. 系统检测与前置检查
+| 方式 | 适用场景 | 优点 | 缺点 |
+|------|----------|------|------|
+| **在线安装** | 快速部署、首次使用 | 🚀 一条命令完成<br>🌐 自动配置<br>🔄 持续更新 | 🔒 需要网络连接<br>📦 依赖外部服务 |
+| **本地安装** | 企业环境、离线部署 | 🔐 内网可执行<br>🛡️ 安全可控<br>📋 可审查代码 | 📦 需要手动下载<br>🔧 手动配置依赖 |
+
+## 📦 安装流程详解
+
+### 🌐 在线安装流程
+
+#### 步骤 1: 执行安装命令
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+```
+
+#### 步骤 2: 自动系统检测
+- 🖥️ 操作系统识别 (macOS/Ubuntu)
+- 📊 系统版本验证
+- 💾 磁盘空间检查
+- 🌐 网络连接测试
+
+#### 步骤 3: 环境配置
+- 📦 系统依赖自动安装
+- 🔒 Tailscale VPN 配置（可选）
+- 🛡️ 防火墙规则设置
+- ⚡ Node.js 环境搭建
+
+#### 步骤 4: OpenClaw 部署
+- 🚀 OpenClaw CLI 安装
+- 🤖 LLM 提供商配置
+- 🔌 Matrix 插件安装
+- 🛡️ 安全防护组件部署
+
+#### 步骤 5: 服务配置
+- ⚙️ 系统服务创建
+- 🔄 开机自启动设置
+- 📝 日志系统配置
+- 🔐 安全权限设置
+
+#### 步骤 6: 完成验证
+- ✅ 安装结果检查
+- 🧪 安全功能测试
+- 📋 使用指南显示
+- 🎉 部署完成确认
+
+### 🔧 本地安装流程
+
+#### 1. 系统检测与前置检查
 - 自动检测操作系统版本
 - 验证系统要求（Ubuntu 版本、磁盘空间等）
 - 网络连接状态检查
 
-### 2. 系统依赖安装
+#### 2. 系统依赖安装
 - **macOS**: Homebrew 安装及基础工具包
 - **Ubuntu**: APT 包管理器配置及安全更新
 
-### 3. Tailscale 配置
+#### 3. Tailscale 配置
 - 自动安装 Tailscale 客户端
 - 配置防火墙规则（仅允许 VPN 访问 SSH）
 - 网络安全策略实施
 
-### 4. Node.js 环境
+#### 4. Node.js 环境
 - 安装 NVM (Node Version Manager)
 - 安装并配置 Node.js 24
 - 环境变量设置
 
-### 5. OpenClaw 核心安装
+#### 5. OpenClaw 核心安装
 - 下载并安装 OpenClaw CLI
 - PATH 环境变量配置
-- MiniMax 提供商初始化
+- LLM 提供商初始化
 
-### 6. Matrix 插件配置
+#### 6. Matrix 插件配置
 - 安装端到端加密通信插件
 - 依赖关系修复和优化
 - 插件依赖包安装
 
-### 7. 系统服务创建
+#### 7. 系统服务创建
 - **macOS**: LaunchDaemon 服务配置
 - **Ubuntu**: systemd 服务配置
 - 开机自启动设置
 
-### 8. 安全加固
+#### 8. 安全加固
 - 文件权限优化（700/600）
 - mDNS 广播禁用
 - 安全防护技能安装
 
-### 9. 安全审计
+#### 9. 安全审计
 - 深度安全漏洞扫描
 - 自动修复选项
 - 安全建议提供
@@ -121,10 +228,34 @@ chmod +x openclaw_secure_install.sh
 
 ### 环境变量
 
+#### 🌐 在线安装变量
+
+| 变量名 | 描述 | 默认值 | 示例 |
+|--------|------|--------|------|
+| `AUTO_ACCEPT` | 自动确认所有提示，无需用户交互 | `0` | `AUTO_ACCEPT=1` |
+| `SKIP_TAILSCALE` | 跳过 Tailscale 安装和配置 | `0` | `SKIP_TAILSCALE=1` |
+| `LLM_PROVIDER` | LLM 提供商选择 | `minimax` | `LLM_PROVIDER=claude` |
+| `DEBUG` | 启用调试模式，显示详细日志 | `0` | `DEBUG=1` |
+
+#### 🖥️ 系统配置变量
+
 | 变量名 | 描述 | 默认值 |
 |--------|------|--------|
 | `OPENCLAW_DISABLE_BONJOUR` | 禁用 mDNS 广播 | `1` |
-| `DEBUG` | 启用调试模式 | `0` |
+| `INSTALL_DIR` | OpenClaw 安装目录 | `$HOME/.openclaw` |
+
+#### 🚀 使用示例
+
+```bash
+# 完全自动化安装
+AUTO_ACCEPT=1 LLM_PROVIDER=minimax curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+
+# 调试模式 + Claude
+DEBUG=1 LLM_PROVIDER=claude curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+
+# 跳过网络配置
+SKIP_TAILSCALE=1 AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/online_install.sh | bash
+```
 
 ### 文件权限
 
@@ -420,11 +551,13 @@ openclaw support
 ## 📈 版本历史
 
 ### v2.0 (当前版本)
+- 🚀 **新增在线一键安装功能**
+- 🤖 **多LLM提供商支持** (MiniMax/Claude/GPT)
 - 🔄 重构脚本架构，提高可维护性
 - 🔒 增强安全加固措施
 - 📊 完善日志和错误处理
 - 🛠️ 优化跨平台兼容性
-- 📚 添加详细文档
+- 📚 添加详细文档和部署指南
 
 ### v1.0
 - 🎉 初始版本发布
