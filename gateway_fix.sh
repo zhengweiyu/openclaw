@@ -274,7 +274,7 @@ main() {
 # ==================== 脚本入口点 ====================
 
 # 检查是否通过curl执行
-if [[ -n "${CURL_EXECUTION:-}" ]]; then
+if [[ -n "${CURL_EXECUTION:-}" ]] || [[ "$(basename "$0")" == "bash" ]]; then
     # 处理命令行参数
     case "${1:-}" in
         "-h"|"--help")
