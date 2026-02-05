@@ -273,7 +273,7 @@ main() {
 
 # ==================== 脚本入口点 ====================
 # 检查是否通过curl执行
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ -n "${CURL_EXECUTION:-}" ]]; then
+if [[ -n "${CURL_EXECUTION:-}" ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
     # 处理命令行参数
     case "${1:-}" in
         "-h"|"--help")
