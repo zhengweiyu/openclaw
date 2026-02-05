@@ -304,8 +304,16 @@ DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/ga
 - 📁 XDG_RUNTIME_DIR 缺失
 - 🔄 daemon-reload 执行失败
 - ⚡ 用户服务持久化问题
+- 🔄 自动重启 Gateway 服务（新功能）
 
-**修复后的验证命令：**
+**修复后的自动操作：**
+脚本修复完成后会自动：
+- 🔄 尝试重启 Gateway 服务
+- 📊 检查服务运行状态  
+- 📡 显示端口信息
+- ✅ 确认服务正常运行
+
+**手动验证命令：**
 ```bash
 # 验证 linger 状态
 sudo loginctl show-user <用户名> | grep Linger
