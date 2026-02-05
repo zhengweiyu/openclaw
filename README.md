@@ -118,13 +118,13 @@ curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/openclaw_s
 
 ```bash
 # 在线修复
-curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix_online.sh | bash
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix.sh | bash
 
 # 自动修复指定用户
-TARGET_USER=ubuntu AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix_online.sh | bash
+TARGET_USER=ubuntu AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix.sh | bash
 
 # 查看帮助
-curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix_online.sh | bash --help
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix.sh | bash --help
 ```
 
 ## 📦 安装流程
@@ -290,13 +290,13 @@ export http_proxy=http://proxy.company.com:8080
 
 ```bash
 # 在线修复（推荐）
-curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix_online.sh | bash
+curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix.sh | bash
 
 # 自动修复指定用户
-TARGET_USER=ubuntu AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix_online.sh | bash
+TARGET_USER=ubuntu AUTO_ACCEPT=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix.sh | bash
 
 # 调试模式修复
-DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix_online.sh | bash
+DEBUG=1 curl -fsSL https://raw.githubusercontent.com/zhengweiyu/openclaw/main/gateway_fix.sh | bash
 ```
 
 **修复脚本解决的问题：**
