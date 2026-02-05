@@ -41,14 +41,24 @@ error_exit() {
 # 确认对话框（非交互模式下跳过）
 confirm() {
     local message="$1"
+    [[ "${DEBUG}" == "1" ]] && log "DEBUG" "进入confirm函数，AUTO_ACCEPT=${AUTO_ACCEPT}"
     [[ "${AUTO_ACCEPT}" == "1" ]] && return 0
     
-    local response
-    read -p "$message [y/N]: " -r response
-    case "$response" in
-        [Yy]|[Yy][Ee][Ss]) return 0 ;;
-        *) return 1 ;;
-    esac
+    # 检查是否在交互式终端中
+    if [[ -t 0 ]]; then
+        [[ "${DEBUG}" == "1" ]] && log "DEBUG" "检测到交互式终端"
+        local response
+        read -p "$message [y/N]: " -r response
+        [[ "${DEBUG}" == "1" ]] && log "DEBUG" "用户输入: $response"
+        case "$response" in
+            [Yy]|[Yy][Ee][Ss]) return 0 ;;
+            *) return 1 ;;
+        esac
+    else
+        # 非交互式环境，自动确认
+        log "INFO" "非交互式环境，自动确认继续执行"
+        return 0
+    fi
 }
 
 # 显示横幅
@@ -83,12 +93,22 @@ get_target_user() {
     if [[ -n "$user_input" ]]; then
         log "INFO" "使用指定用户: $user_input"
     elif [[ "${AUTO_ACCEPT}" == "1" ]]; then
-        user_input=$(whoami)
+        user_input=$(whoami 2>/dev/null | tr -d '\n\r')
         log "INFO" "自动模式，使用当前用户: $user_input"
     else
-        read -p "请输入需要修复的目标用户名（默认: $(whoami)）: " -r user_input
-        user_input="${user_input:-$(whoami)}"
+        # 检查是否在交互式终端中
+        if [[ -t 0 ]]; then
+            read -p "请输入需要修复的目标用户名（默认: $(whoami)）: " -r user_input
+            user_input="${user_input:-$(whoami)}"
+        else
+            # 非交互式环境，使用当前用户
+            user_input=$(whoami 2>/dev/null | tr -d '\n\r')
+            log "INFO" "非交互式环境，使用当前用户: $user_input"
+        fi
     fi
+    
+    # 清理用户名中的空白字符
+    user_input=$(echo "$user_input" | tr -d ' \t\n\r')
     
     if ! id -u "$user_input" &> /dev/null; then
         error_exit "用户名 $user_input 不存在！"
