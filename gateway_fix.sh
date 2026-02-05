@@ -171,6 +171,36 @@ show_completion_guide() {
     echo
     echo "✨ Gateway 服务问题已修复！"
     echo
+    
+    # 尝试自动重启 Gateway 服务
+    echo "🔄 正在尝试自动重启 Gateway 服务..."
+    if sudo -iu "$target_user" command -v openclaw &> /dev/null; then
+        if sudo -iu "$target_user" openclaw gateway restart 2>/dev/null; then
+            echo "✅ Gateway 服务已成功重启！"
+            
+            # 等待几秒让服务启动
+            sleep 3
+            
+            # 显示服务状态
+            echo "📊 Gateway 服务状态："
+            if sudo -iu "$target_user" systemctl --user is-active --quiet gateway; then
+                echo "   ✅ Gateway 服务正在运行"
+                # 显示端口信息
+                echo "📡 Gateway 端口信息："
+                sudo -iu "$target_user" openclaw gateway status 2>/dev/null || echo "   ℹ️  无法获取详细状态，但服务已启动"
+            else
+                echo "   ⚠️  Gateway 服务可能需要更多时间启动"
+            fi
+        else
+            echo "⚠️  自动重启失败，请手动执行："
+            echo "   sudo -iu $target_user openclaw gateway restart"
+        fi
+    else
+        echo "ℹ️  OpenClaw 命令未找到，跳过自动重启"
+        echo "   请确保 OpenClaw 已正确安装"
+    fi
+    
+    echo
 }
 
 # 主修复函数
